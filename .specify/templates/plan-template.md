@@ -8,7 +8,8 @@
 
 ## Summary
 
-[Extract from feature spec: primary requirement + technical approach from research]
+[Extract from feature spec: primary driver workflow + technical approach from research.
+State how this feature helps a HUM driver run a private driving business.]
 
 ## Technical Context
 
@@ -40,7 +41,16 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- **Driver business ownership**: Explain how the feature reinforces the driver
+  as an independent professional, not a gig worker.
+- **Concierge reliability**: Identify the proactive preparation, automation, or
+  one-tap action that reduces airport-pickup or service anxiety.
+- **Calm, legible, low-touch operation**: Confirm clear hierarchy, readable type,
+  large touch targets, plain language, and minimal driver attention.
+- **Relationship memory**: State what client, ride, preference, note, or revenue
+  context is created, updated, preserved, or intentionally out of scope.
+- **Required testing and observability**: Define automated tests for every user
+  story and the logs/events needed to debug core driver workflow failures.
 
 ## Project Structure
 
@@ -92,12 +102,22 @@ frontend/
 │   └── services/
 └── tests/
 
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
+# [REMOVE IF UNUSED] Option 3: HUM driver app + backend
+src/
+├── app/
+├── components/
+├── services/
+└── lib/
 
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+supabase/ or backend/
+├── migrations/
+├── functions/
+└── tests/
+
+tests/
+├── contract/
+├── integration/
+└── unit/
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real

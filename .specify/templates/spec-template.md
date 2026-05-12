@@ -8,6 +8,18 @@
 
 **Input**: User description: "$ARGUMENTS"
 
+## Constitution Alignment *(mandatory)*
+
+<!--
+  ACTION REQUIRED: Ground the feature in the HUM Driver App Constitution.
+  Keep answers product-focused and technology-agnostic.
+-->
+
+- **Driver business value**: [How this helps the driver operate a private driving business]
+- **Concierge reliability**: [How this reduces rider/driver anxiety through preparation, automation, or one-tap action]
+- **Low-touch accessibility**: [How the flow remains legible, plain-language, and quick for older professional drivers]
+- **Relationship memory**: [What client/ride/preference/revenue context is affected, or why it is out of scope]
+
 ## User Scenarios & Testing *(mandatory)*
 
 <!--
@@ -73,6 +85,9 @@
 <!--
   ACTION REQUIRED: The content in this section represents placeholders.
   Fill them out with the right edge cases.
+  Include driver-context failures such as missing flight details, delayed data,
+  scheduling conflicts, offline/poor connectivity, message send failures, and
+  unclear client handoff states when relevant.
 -->
 
 - What happens when [boundary condition]?
@@ -112,9 +127,9 @@
 
 ### Measurable Outcomes
 
-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
+- **SC-001**: [Driver task completion metric, e.g., "Drivers can send the prepared pickup message in under 10 seconds"]
 - **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
+- **SC-003**: [Driver confidence or service-quality metric, e.g., "90% of drivers successfully complete primary task on first attempt"]
 - **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
 
 ## Assumptions
