@@ -6,6 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { setStatusBarStyle } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { useColorScheme, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { hydrateAuthStore, subscribeAuthStore } from '@/features/auth';
 import '@/global.css';
@@ -59,11 +60,13 @@ export default function RootLayout() {
   }
 
   return (
-    <View className={`flex-1 ${themeKey === 'dark' ? 'dark' : ''}`}>
-      <ThemeProvider value={NAV_THEME[themeKey]}>
-        <Stack screenOptions={{ headerShown: false }} />
-        <PortalHost />
-      </ThemeProvider>
-    </View>
+    <GestureHandlerRootView className="flex-1">
+      <View className={`flex-1 ${themeKey === 'dark' ? 'dark' : ''}`}>
+        <ThemeProvider value={NAV_THEME[themeKey]}>
+          <Stack screenOptions={{ headerShown: false }} />
+          <PortalHost />
+        </ThemeProvider>
+      </View>
+    </GestureHandlerRootView>
   );
 }

@@ -28,7 +28,7 @@ describe('auth routing guards', () => {
     });
 
     it('sends signed-in users to driver area', () => {
-      expect(evaluateRootIndexRedirect(true, 'signedIn')).toBe('/(driver)');
+      expect(evaluateRootIndexRedirect(true, 'signedIn')).toBe('/(driver)/(tabs)');
     });
 
     it('sends signed-out users to sign-in', () => {

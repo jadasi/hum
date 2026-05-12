@@ -16,9 +16,9 @@ export function evaluateDriverGuard(hydrated: boolean, status: AuthStatus): Driv
   return { kind: 'allow' };
 }
 
-export function evaluateAuthStackRedirect(hydrated: boolean, status: AuthStatus): '/(driver)' | null {
+export function evaluateAuthStackRedirect(hydrated: boolean, status: AuthStatus): '/(driver)/(tabs)' | null {
   if (hydrated && status === 'signedIn') {
-    return '/(driver)';
+    return '/(driver)/(tabs)';
   }
   return null;
 }
@@ -26,12 +26,12 @@ export function evaluateAuthStackRedirect(hydrated: boolean, status: AuthStatus)
 export function evaluateRootIndexRedirect(
   hydrated: boolean,
   status: AuthStatus
-): '/(driver)' | '/(auth)/sign-in' | null {
+): '/(driver)/(tabs)' | '/(auth)/sign-in' | null {
   if (!hydrated || status === 'unknown') {
     return null;
   }
   if (status === 'signedIn') {
-    return '/(driver)';
+    return '/(driver)/(tabs)';
   }
   return '/(auth)/sign-in';
 }

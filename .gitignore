@@ -9,6 +9,7 @@ node_modules/
 .expo/types/*
 !.expo/types/router.d.ts
 dist/
+build/
 web-build/
 expo-env.d.ts
 
@@ -28,6 +29,7 @@ expo-env.d.ts
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+*.log
 
 # macOS
 .DS_Store

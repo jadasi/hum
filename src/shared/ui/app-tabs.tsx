@@ -15,11 +15,23 @@ export default function AppTabs() {
       indicatorColor={t.muted}
       labelStyle={{ selected: { color: t.foreground } }}>
       <NativeTabs.Trigger name="index">
-        <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>Today</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           src={require('@/assets/images/tabIcons/home.png')}
           renderingMode="template"
         />
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="clients">
+        <NativeTabs.Trigger.Label>Clients</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon md="person" sf="person" />
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="earnings">
+        <NativeTabs.Trigger.Label>Earnings</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon md="paid" sf="dollarsign.circle" />
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="posse">
+        <NativeTabs.Trigger.Label>Posse</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon md="people" sf="person.2" />
       </NativeTabs.Trigger>
     </NativeTabs>
   );
