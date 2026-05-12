@@ -1,6 +1,6 @@
 /**
  * Runtime colors / spacing for React Native `StyleSheet` usage.
- * Tokens mirror `src/styles/design-tokens.css`.
+ * Tokens mirror `src/shared/styles/design-tokens.css`.
  */
 
 import { Platform } from 'react-native';

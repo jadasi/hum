@@ -51,6 +51,11 @@ State how this feature helps a HUM driver run a private driving business.]
   context is created, updated, preserved, or intentionally out of scope.
 - **Required testing and observability**: Define automated tests for every user
   story and the logs/events needed to debug core driver workflow failures.
+- **Feature-Sliced Design**: List new or touched files under the correct FSD
+  layer (`app`, `pages`, `widgets`, `features`, `entities`, `shared`). Confirm
+  imports only flow **downward** across layers, route files in `src/app/` stay
+  thin, and **public API** entrypoints (`index.ts`) are updated—no deep imports
+  across slice boundaries. Do not add the deprecated `processes` layer.
 
 ## Project Structure
 
@@ -67,47 +72,26 @@ specs/[###-feature]/
 ```
 
 ### Source Code (repository root)
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
+
+HUM driver app uses **Feature-Sliced Design** under `src/`. Expo Router lives in
+`src/app/`. Shared UI lives in `src/shared/ui/`; React Native Reusables /
+shadcn-style generated components go in `src/shared/ui/primitives/` (see
+`components.json` alias `ui`). Backend may be `supabase/` or another
+`backend/` root. Tests live under `tests/`.
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
 src/
-├── models/
-├── services/
-├── cli/
-└── lib/
-
-tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: HUM driver app + backend
-src/
-├── app/
-├── components/
-├── services/
-└── lib/
+├── app/                 # FSD app: Expo Router, root layouts, providers
+├── pages/               # FSD pages: screen slices (add when used)
+├── widgets/             # FSD widgets: large composed blocks (optional)
+├── features/            # FSD features: user interactions (optional)
+├── entities/            # FSD entities: domain nouns (optional)
+├── shared/
+│   ├── ui/              # UI kit: app chrome + themed components
+│   │   └── primitives/  # shadcn/RNR-generated components (components.json "ui")
+│   ├── lib/             # cn(), theme tokens, navigation theme, color-scheme hooks
+│   └── styles/          # design-tokens.css (imported from global.css)
+└── assets/
 
 supabase/ or backend/
 ├── migrations/
@@ -120,8 +104,9 @@ tests/
 └── unit/
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Structure Decision**: [Describe where this feature’s files land in the tree
+above; reference real paths and any temporary deviation documented in Complexity
+Tracking]
 
 ## Complexity Tracking
 

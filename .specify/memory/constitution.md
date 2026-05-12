@@ -1,28 +1,22 @@
 <!--
 Sync Impact Report
-Version change: template -> 1.0.0
+Version change: 1.0.0 → 1.1.0
 Modified principles:
-- PRINCIPLE_1_NAME placeholder -> I. Drivers Are Independent Business Owners
-- PRINCIPLE_2_NAME placeholder -> II. Concierge Reliability Over Gig-App Urgency
-- PRINCIPLE_3_NAME placeholder -> III. Calm, Legible, Low-Touch Operation
-- PRINCIPLE_4_NAME placeholder -> IV. Relationship Memory Creates the Business
-- PRINCIPLE_5_NAME placeholder -> V. Tested, Observable, Incremental Engineering
+- (titles unchanged I–V) — new VI added
 Added sections:
-- Driver App Scope and Product Constraints
-- Delivery Workflow and Quality Gates
+- VI. Feature-Sliced Design (FSD) Application Structure (Core Principles)
 Removed sections:
-- Placeholder SECTION_2_NAME
-- Placeholder SECTION_3_NAME
-Templates requiring updates:
-- Updated: .specify/templates/plan-template.md
-- Updated: .specify/templates/spec-template.md
-- Updated: .specify/templates/tasks-template.md
-- Reviewed: .specify/templates/checklist-template.md (no change required)
-- Reviewed: .specify/templates/commands/*.md (not present)
-Runtime guidance:
-- Reviewed: README.md (no constitution references to update)
-Follow-up TODOs:
 - None
+Templates requiring updates:
+- Updated: .specify/templates/plan-template.md (Constitution Check + project tree)
+- Updated: .specify/templates/spec-template.md (Constitution Alignment: FSD)
+- Updated: .specify/templates/tasks-template.md (path conventions + FSD task guidance)
+- Reviewed: .specify/templates/checklist-template.md (no change required)
+- Reviewed: .specify/templates/constitution-template.md (generic template; project-specific FSD lives here)
+Runtime guidance:
+- Reviewed: README.md (no mandatory update)
+Follow-up TODOs:
+- Add FSD `pages/` / `features/` / `entities/` slices as product screens solidify; starter routes in `src/app/` may be replaced wholesale
 -->
 
 # HUM Driver App Constitution
@@ -89,8 +83,87 @@ Implementation MUST remain incremental: each user story must be independently
 testable and demonstrable before the next story depends on it.
 
 Rationale: The app will coordinate mobile UI, backend state, third-party data,
-and rider communication. Thin, tested slices reduce risk while the product shape
-is still evolving.
+and rider communication. Thin, tested vertical increments reduce risk while the
+product shape is still evolving.
+
+### VI. Feature-Sliced Design (FSD) Application Structure
+
+The HUM driver client code under `src/` MUST follow [Feature-Sliced
+Design](https://feature-sliced.design/docs/reference/layers) as the architectural
+methodology. FSD organizes code by **layers** (dependency rank), **slices**
+(business meaning within a layer), and **segments** (technical role within a
+slice). Official reference: [layers](https://feature-sliced.design/docs/reference/layers),
+[slices and segments](https://feature-sliced.design/docs/reference/slices-segments),
+[public API](https://feature-sliced.design/docs/reference/public-api).
+
+**FSD root.** The directory `src/` is the FSD root. Path alias `@/` maps to
+`src/` (see `tsconfig.json`). New feature code MUST be placed in the correct
+layer; legacy top-level folders outside FSD MUST migrate into `shared/` or
+FSD layers when touched materially, unless Complexity Tracking justifies a
+deferral.
+
+**Layers (top → bottom: highest responsibility → lowest; import only downward).**
+Use lowercase folder names. A module in a slice MUST NOT import another slice on
+the same layer, except where this constitution explicitly allows.
+
+1. **`app`** — Application-wide composition: global providers, router setup,
+   entrypoints, app-wide styles, global stores. In this Expo Router codebase,
+   `src/app/` is the framework’s route tree and root layouts; it fulfills the FSD
+   **app** layer. Route files MUST stay thin: wire segments (navigation, params)
+   and compose UI from **pages** / **widgets** / **features**, not large bespoke
+   screens inline.
+2. **`processes`** — **Deprecated** in FSD. MUST NOT be added. Use **features**
+   and **app** instead.
+3. **`pages`** — Full screens or activities: one slice per page (group only
+   closely related screens). Typical segments: `ui`, `api` for page data
+   loading/mutations, minimal local state in UI when no shared model is needed.
+4. **`widgets`** — Large, reusable UI blocks composing features/entities (e.g.
+   dashboard panels). Use when reused across pages or when a page has multiple
+   large independent blocks. If a block is not reused and dominates one page,
+   keep it in that **page** slice instead.
+5. **`features`** — User interactions the product cares about (often reused),
+   wired to entities (e.g. “submit airport pickup”, “edit client note”). Typical
+   segments: `ui`, `api`, `model`, `config` for feature flags.
+6. **`entities`** — Business nouns (Driver, Ride, Client, FlightLeg, etc.).
+   Typical segments: `ui` (entity appearance), `model` (schemas, stores, domain
+   logic), `api` (entity-specific requests). Slices on this layer MUST remain
+   isolated from each other.
+7. **`shared`** — Foundation: design system primitives, hooks with no business
+   meaning, generic utilities, API client shell, env/config, i18n helpers.
+   MUST NOT contain business rules or product workflows.
+
+**`app` and `shared` are layer–slice exceptions.** They have **no business
+slices** inside them—only **segments** (e.g. `shared/ui`, `shared/lib`,
+`shared/api`, `app/styles`). Files inside each of these two layers MAY import
+across segments within the same layer per FSD.
+
+**Segments.** Prefer standard segment names: `ui`, `api`, `model`, `lib`,
+`config`. Custom segments on **app**/**shared** MUST name a **purpose**, not a
+file type: names like `components`, `hooks`, or `types` as segment folders are
+FORBIDDEN.
+
+**Public API rule.** Every slice (and every **app** / **shared** segment area
+that acts as a publishable unit) MUST expose a deliberate public surface
+(typically `index.ts`). Code outside that unit MUST import only from its public
+API, not deep internal paths. Wildcard barrel re-exports (`export * from ...`)
+that obscure the interface or harm tree-shaking are FORBIDDEN on slice public
+APIs. For `shared/ui` and `shared/lib`, prefer **one publishable folder per
+component/library** (each with its own `index.ts`) so consumers import
+`@/shared/ui/button` rather than pulling unrelated modules.
+
+**Import style to avoid cycles.** Inside the same slice, use **relative** imports
+with full paths. Between slices or layers, use **absolute** imports (`@/...`).
+
+**Entity cross-references.** When one entity’s model must reference another and
+lifting logic to **features** / **pages** is wrong, use the FSD **`@x` public API
+notation** (e.g. `entities/foo/@x/bar.ts` consumed only by `entities/bar/`).
+Keep cross-imports rare; default to composing entities from higher layers.
+
+**Optional layers.** `widgets` / `features` / `entities` folders MAY be omitted
+until needed; do not invent extra top-level FSD layers beyond the standard set.
+
+Rationale: FSD keeps dependency direction predictable, reduces accidental coupling
+between business areas, and scales with the driver app’s growing domain surface.
 
 ## Driver App Scope and Product Constraints
 
@@ -115,9 +188,10 @@ needed.
 
 Feature specifications MUST state how the feature supports the driver's business,
 concierge reliability, low-touch operation, and relationship memory. Plans MUST
-include a Constitution Check before research and after design. Tasks MUST include
-automated tests for each user story and must keep every story independently
-verifiable.
+include a Constitution Check before research and after design. Plans MUST state
+which FSD layers and slices new files belong in and confirm import directions
+respect the layer rule. Tasks MUST include automated tests for each user story
+and must keep every story independently verifiable.
 
 Accessibility review is required for driver-facing UI. The review MUST verify
 plain language, readable type, clear hierarchy, large touch targets, and a path
@@ -144,4 +218,4 @@ Constitution compliance MUST be reviewed during planning and before completion
 of any feature. Known violations MUST be documented in Complexity Tracking with
 the simpler alternative that was rejected.
 
-**Version**: 1.0.0 | **Ratified**: 2026-05-12 | **Last Amended**: 2026-05-12
+**Version**: 1.1.0 | **Ratified**: 2026-05-12 | **Last Amended**: 2026-05-12

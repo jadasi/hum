@@ -5,10 +5,10 @@ import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { AnimatedSplashOverlay } from '@/shared/ui/animated-icon';
+import AppTabs from '@/shared/ui/app-tabs';
 import '@/global.css';
-import { NAV_THEME } from '@/lib/theme';
+import { NAV_THEME } from '@/shared/lib/navigation-theme';
 
 void SplashScreen.preventAutoHideAsync();
 

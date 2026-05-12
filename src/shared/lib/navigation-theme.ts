@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, type Theme } from '@react-navigation/native';
 
-/** Aligned with `src/global.css` + `src/styles/design-tokens.css` */
+/** Aligned with `src/global.css` + `src/shared/styles/design-tokens.css` */
 export const THEME = {
   light: {
     background: 'hsl(0 0% 100%)',

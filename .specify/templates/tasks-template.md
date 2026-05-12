@@ -20,16 +20,21 @@ appropriate automated tests for every user story before implementation tasks.
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
 - Include exact file paths in descriptions
 - Include constitution-relevant coverage for driver business value, concierge
-  reliability, low-touch accessibility, relationship memory, and observability
-  when applicable
+  reliability, low-touch accessibility, relationship memory, observability, and
+  Feature-Sliced Design (correct layer/slice, public API imports only) when
+  applicable
 
 ## Path Conventions
 
 - **Single project**: `src/`, `tests/` at repository root
 - **Web app**: `backend/src/`, `frontend/src/`
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- **HUM driver app**: `src/app/`, `src/components/`, `src/services/`,
-  `supabase/` or `backend/`, and `tests/`
+- **HUM driver app (FSD)**: Feature code under `src/` uses layers `app/`
+  (Expo Router + global composition), `pages/`, `widgets/`, `features/`,
+  `entities/`, `shared/`; plus `supabase/` or `backend/`, and `tests/`. Prefer
+  `@/` absolute imports between slices; relative paths within a slice. Prefer
+  `src/shared/lib/` and `src/shared/ui/` for cross-cutting code rather than new
+  root-level `hooks/`, `lib/`, or `constants/` folders.
 - Paths shown below assume single project - adjust based on plan.md structure
 
 <!--

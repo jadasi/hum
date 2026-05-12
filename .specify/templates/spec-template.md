@@ -19,6 +19,9 @@
 - **Concierge reliability**: [How this reduces rider/driver anxiety through preparation, automation, or one-tap action]
 - **Low-touch accessibility**: [How the flow remains legible, plain-language, and quick for older professional drivers]
 - **Relationship memory**: [What client/ride/preference/revenue context is affected, or why it is out of scope]
+- **FSD placement (implementation hint)**: [Which layers/slices will hold the
+  change—e.g. new entity vs feature vs page—and that cross-layer imports will
+  only go downward; note if `src/app/` route files only compose lower layers]
 
 ## User Scenarios & Testing *(mandatory)*
 
