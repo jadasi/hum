@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    /* Serif / rounded not defined in DS file — used by `Fonts` on web */
+    /* Serif / rounded not defined in DS file — web font stacks use CSS vars below */
     --font-serif: Georgia, 'Times New Roman', serif;
     --font-rounded: var(--font-primary);
 

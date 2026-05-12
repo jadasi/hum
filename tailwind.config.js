@@ -83,21 +83,26 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-primary)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-mono)', 'ui-monospace', 'monospace'],
+        sans: 'DM Sans',
+        display: 'DM Sans',
+        mono: 'Menlo',
       },
+      /**
+       * Line heights must be explicit lengths for React Native: unitless CSS
+       * multipliers (e.g. 1.45) become ~1.45dp and clip glyphs. Values follow
+       * design-tokens.css sizes × leading goals, rounded to whole pixels.
+       */
       fontSize: {
-        'hum-xs': ['var(--text-xs)', { lineHeight: 'var(--lh-normal)' }],
-        'hum-sm': ['var(--text-sm)', { lineHeight: 'var(--lh-normal)' }],
-        'hum-base': ['var(--text-base)', { lineHeight: 'var(--lh-relaxed)' }],
-        'hum-md': ['var(--text-md)', { lineHeight: 'var(--lh-loose)' }],
-        'hum-lg': ['var(--text-lg)', { lineHeight: 'var(--lh-normal)' }],
-        'hum-xl': ['var(--text-xl)', { lineHeight: 'var(--lh-snug)' }],
-        'hum-2xl': ['var(--text-2xl)', { lineHeight: 'var(--lh-snug)' }],
-        'hum-3xl': ['var(--text-3xl)', { lineHeight: 'var(--lh-tight)' }],
-        'hum-4xl': ['var(--text-4xl)', { lineHeight: 'var(--lh-tight)' }],
-        'hum-5xl': ['var(--text-5xl)', { lineHeight: 'var(--lh-tight)' }],
+        'hum-xs': ['var(--text-xs)', { lineHeight: '16px' }],
+        'hum-sm': ['var(--text-sm)', { lineHeight: '20px' }],
+        'hum-base': ['var(--text-base)', { lineHeight: '25px' }],
+        'hum-md': ['var(--text-md)', { lineHeight: '28px' }],
+        'hum-lg': ['var(--text-lg)', { lineHeight: '26px' }],
+        'hum-xl': ['var(--text-xl)', { lineHeight: '32px' }],
+        'hum-2xl': ['var(--text-2xl)', { lineHeight: '40px' }],
+        'hum-3xl': ['var(--text-3xl)', { lineHeight: '48px' }],
+        'hum-4xl': ['var(--text-4xl)', { lineHeight: '58px' }],
+        'hum-5xl': ['var(--text-5xl)', { lineHeight: '72px' }],
       },
       fontWeight: {
         'hum-regular': 'var(--fw-regular)',
