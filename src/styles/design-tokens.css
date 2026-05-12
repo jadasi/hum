@@ -1,0 +1,274 @@
+/* ============================================================
+   HUM — Colors & Type
+   Color + typography tokens
+   ============================================================ */
+
+/* DM Sans — brand variable fonts */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/DMSans-VariableFont_opsz_wght.ttf') format('truetype-variations'),
+    url('../assets/fonts/DMSans-VariableFont_opsz_wght.ttf') format('truetype');
+  font-weight: 100 1000;
+  font-stretch: 25% 151%;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/DMSans-Italic-VariableFont_opsz_wght.ttf') format('truetype-variations'),
+    url('../assets/fonts/DMSans-Italic-VariableFont_opsz_wght.ttf') format('truetype');
+  font-weight: 100 1000;
+  font-stretch: 25% 151%;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* ----- BRAND COLOR ----- */
+  --color-teal: #52ada2;
+  --color-teal-darker: #2a6b62; /* hover on teal */
+  --color-teal-dark: #3d8a80; /* active / pressed */
+  --color-teal-light: #7ec5bc; /* illustrations */
+  --color-teal-lighter: #aadcd6; /* disabled, soft fills */
+  --color-teal-faint: #f0fbf7; /* DEFAULT hero background, callouts */
+
+  --color-pink: #d0114d; /* CTA ONLY */
+  --color-pink-dark: #a50d3d; /* CTA hover */
+  --color-pink-light: #e84b7a; /* illustrations only — never UI */
+  --color-pink-faint: #fce8ef; /* alert backgrounds */
+
+  /* ----- NEUTRALS ----- */
+  --color-black: #0d0d0d;
+  --color-gray-900: #1a1a1a;
+  --color-gray-800: #2e2e2e;
+  --color-gray-700: #444444;
+  --color-gray-500: #777777;
+  --color-gray-300: #bbbbbb;
+  --color-gray-100: #f0f0f0;
+  --color-gray-50: #f8f8f8;
+  --color-white: #ffffff;
+
+  /* ----- SEMANTIC: FOREGROUND ----- */
+  --fg-1: var(--color-black); /* primary text */
+  --fg-2: var(--color-gray-700); /* secondary text */
+  --fg-3: var(--color-gray-500); /* captions, metadata */
+  --fg-disabled: var(--color-gray-300);
+  --fg-on-dark: var(--color-white);
+  --fg-on-teal: var(--color-white);
+  --fg-link: var(--color-teal);
+  --fg-link-hover: var(--color-teal-darker);
+  --fg-accent: var(--color-teal);
+  --fg-stat: var(--color-teal); /* large stat numbers */
+
+  /* ----- SEMANTIC: BACKGROUND ----- */
+  --bg-page: var(--color-white);
+  --bg-hero: var(--color-teal-faint); /* DEFAULT hero */
+  --bg-alt: var(--color-teal-faint); /* alternating body */
+  --bg-card: var(--color-white);
+  --bg-stats: var(--color-black);
+  --bg-cta-banner: var(--color-teal);
+  --bg-footer: var(--color-black);
+
+  /* ----- SEMANTIC: BORDER ----- */
+  --border-subtle: var(--color-gray-300);
+  --border-strong: var(--color-black);
+  --border-accent: var(--color-teal);
+
+  /* ============================================================
+     TYPOGRAPHY — DM Sans, 300–900
+     One typeface across the whole system.
+     ============================================================ */
+  --font-primary: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-display: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', Courier, monospace;
+
+  /* Type scale (raw) */
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --text-3xl: 40px;
+  --text-4xl: 52px;
+  --text-5xl: 64px;
+
+  /* Weights */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+  --fw-black: 900;
+
+  /* Leading */
+  --lh-tight: 1.1;
+  --lh-snug: 1.25;
+  --lh-normal: 1.45;
+  --lh-relaxed: 1.65;
+  --lh-loose: 1.75;
+
+  /* Tracking */
+  --tracking-tightest: -0.04em; /* big display */
+  --tracking-tight: -0.02em; /* H2 */
+  --tracking-normal: 0;
+  --tracking-loose: 0.18em; /* small-caps eyebrow */
+
+  /* ============================================================
+     SPACING — 4px base
+     ============================================================ */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ============================================================
+     RADII
+     ============================================================ */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+
+  /* ============================================================
+     ELEVATION — soft, restrained. Black has no luxury shadow.
+     ============================================================ */
+  --shadow-xs: 0 1px 2px rgba(13, 13, 13, 0.04);
+  --shadow-sm: 0 1px 3px rgba(13, 13, 13, 0.06), 0 1px 2px rgba(13, 13, 13, 0.04);
+  --shadow-md: 0 4px 12px rgba(13, 13, 13, 0.07), 0 2px 4px rgba(13, 13, 13, 0.04);
+  --shadow-lg: 0 12px 32px rgba(13, 13, 13, 0.1), 0 4px 8px rgba(13, 13, 13, 0.04);
+  --shadow-focus: 0 0 0 3px rgba(82, 173, 162, 0.35);
+  --shadow-focus-pink: 0 0 0 3px rgba(208, 17, 77, 0.3);
+
+  /* ============================================================
+     MOTION
+     ============================================================ */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.25, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+}
+
+/* ============================================================
+   BASE ELEMENT STYLES — apply on <body> for sensible defaults.
+   ============================================================ */
+body {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-1);
+  background: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display / H1 — 40–64px, 900, tight */
+.h-display,
+h1 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-black);
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tightest);
+  color: var(--fg-1);
+  margin: 0 0 var(--space-4);
+}
+
+/* H2 section heading — 24–32px, 800 */
+.h-section,
+h2 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-extrabold);
+  font-size: clamp(24px, 2.5vw, 32px);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+  margin: 0 0 var(--space-3);
+}
+
+/* H3 sub-heading — 16–20px, 700 */
+.h-sub,
+h3 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: var(--lh-normal);
+  color: var(--fg-1);
+  margin: 0 0 var(--space-2);
+}
+
+p,
+.body {
+  font-size: var(--text-md);
+  line-height: var(--lh-loose);
+  color: var(--fg-1);
+  margin: 0 0 var(--space-4);
+}
+
+/* Eyebrow — small caps with tracking, teal */
+.eyebrow {
+  font-size: var(--text-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-loose);
+  text-transform: uppercase;
+  color: var(--color-teal);
+}
+
+/* Stat — large emphasis number */
+.stat {
+  font-family: var(--font-display);
+  font-weight: var(--fw-black);
+  font-size: clamp(48px, 6vw, 64px);
+  line-height: 1;
+  letter-spacing: var(--tracking-tightest);
+  color: var(--fg-stat);
+}
+
+/* Pull quote / testimonial */
+.quote {
+  font-size: clamp(17px, 1.6vw, 19px);
+  font-style: italic;
+  line-height: var(--lh-relaxed);
+  color: var(--fg-1);
+}
+.quote-attr {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-bold);
+  color: var(--color-gray-500);
+  font-style: normal;
+}
+
+.caption {
+  font-size: var(--text-sm);
+  color: var(--fg-3);
+}
+
+code,
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+a {
+  color: var(--fg-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+a:hover {
+  color: var(--fg-link-hover);
+}

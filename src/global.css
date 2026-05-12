@@ -1,9 +1,82 @@
-:root {
-  --font-display:
-    Spline Sans, Inter, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji,
-    Segoe UI Symbol, Noto Color Emoji;
-  --font-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-  --font-rounded: 'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif;
-  --font-serif: Georgia, 'Times New Roman', serif;
+@import './styles/design-tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Serif / rounded not defined in DS file — used by `Fonts` on web */
+    --font-serif: Georgia, 'Times New Roman', serif;
+    --font-rounded: var(--font-primary);
+
+    --background: 0 0% 100%;
+    --foreground: 0 0% 5.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 5.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5.1%;
+    --primary: 172 39% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 94.1%;
+    --secondary-foreground: 0 0% 5.1%;
+    --muted: 0 0% 97.3%;
+    --muted-foreground: 0 0% 46.7%;
+    --accent: 168 58% 96%;
+    --accent-foreground: 172 45% 28%;
+    --destructive: 340 86% 44%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 73.3%;
+    --input: 0 0% 73.3%;
+    --ring: 172 39% 50%;
+    --radius: 0.5rem;
+
+    --chart-1: 172 39% 50%;
+    --chart-2: 172 38% 38%;
+    --chart-3: 172 42% 62%;
+    --chart-4: 340 86% 44%;
+    --chart-5: 168 45% 88%;
+  }
+
+  .dark {
+    --background: 0 0% 5.1%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 10.2%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 10.2%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 172 39% 52%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 73.3%;
+    --accent: 172 22% 22%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 340 72% 52%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 26.7%;
+    --input: 0 0% 26.7%;
+    --ring: 172 39% 52%;
+
+    --chart-1: 172 42% 55%;
+    --chart-2: 172 35% 40%;
+    --chart-3: 168 40% 70%;
+    --chart-4: 340 75% 58%;
+    --chart-5: 172 25% 30%;
+
+    /* Hum semantic tokens — dark surfaces */
+    --bg-page: var(--color-gray-900);
+    --bg-hero: var(--color-gray-900);
+    --bg-alt: var(--color-gray-900);
+    --bg-card: var(--color-gray-900);
+    --fg-1: var(--color-white);
+    --fg-2: var(--color-gray-100);
+    --fg-3: var(--color-gray-300);
+    --fg-disabled: var(--color-gray-700);
+    --fg-link: var(--color-teal-light);
+    --fg-link-hover: var(--color-teal-lighter);
+    --border-subtle: var(--color-gray-700);
+    --border-strong: var(--color-white);
+  }
 }

@@ -21,6 +21,7 @@
       "package": "com.humslice.flights"
     },
     "web": {
+      "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
@@ -29,7 +30,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
+          "backgroundColor": "#52ADA2",
           "android": {
             "image": "./assets/images/splash-icon.png",
             "imageWidth": 76
