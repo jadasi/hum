@@ -30,7 +30,8 @@ const rideViewSelect = `
     phone_number,
     total_rides,
     lifetime_value_cents,
-    preferences
+    preferences,
+    client_source
   ),
   pricing:pricing_quotes (
     id,

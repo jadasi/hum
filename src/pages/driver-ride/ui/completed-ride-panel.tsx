@@ -1,6 +1,7 @@
 import { Pressable, TextInput, View } from 'react-native';
 
 import { formatMoney } from '@/pages/driver-home';
+import { formatRiderName } from '@/pages/driver-home/model/home-dashboard-formatters';
 import { Text } from '@/shared/ui/primitives/text';
 
 import type { LocalRelationshipDraft } from '../model/local-relationship-draft';
@@ -21,30 +22,45 @@ export function CompletedRidePanel({
   onToggleDraftTag,
 }: CompletedRidePanelProps) {
   const payment = data.pricing.accepted ?? data.pricing.quoted;
+  const riderName = formatRiderName(data.rider.firstName, data.rider.lastName);
+  const riderHistory = data.rider.totalRides === 1 ? '1 ride together' : `${data.rider.totalRides} rides together`;
+  const routeDistance = data.route.distanceText;
+  const routeDuration = data.route.durationText;
+  const paymentMeta = [routeDistance, routeDuration, 'trip complete'].filter(Boolean).join(' · ');
   const humMoment =
     'Take a breath—small moments of care are what riders remember most. Thank you for representing HUM.';
 
   return (
     <View className="gap-4" testID="completed-ride-panel">
-      <View className="gap-1" testID="completed-rider-summary">
-        <Text className="font-sans text-[10px] font-hum-semibold uppercase tracking-wide text-muted-foreground">
-          Rider relationship
-        </Text>
-        <Text className="font-sans text-hum-sm font-hum-semibold text-foreground">
-          {data.rider.totalRides} rides · {formatMoney(data.rider.lifetimeValue)} lifetime value
-        </Text>
+      <View className="items-center gap-3 rounded-3xl border border-primary/20 bg-primary/5 px-4 py-5" testID="completed-payment-summary">
+        <Text className="font-sans text-[10px] font-hum-semibold uppercase tracking-[1.8px] text-primary">Paid</Text>
+        <Text className="font-sans text-[54px] font-hum-bold leading-[58px] text-primary">{formatMoney(payment)}</Text>
+        <Text className="font-sans text-hum-xs text-muted-foreground">{paymentMeta}</Text>
       </View>
 
-      <View className="gap-1 rounded-xl border border-border bg-background px-3 py-3" testID="completed-payment-summary">
-        <Text className="font-sans text-[10px] font-hum-semibold uppercase tracking-wide text-muted-foreground">
-          Payment
-        </Text>
-        <Text className="font-sans text-hum-lg font-hum-bold text-foreground">{formatMoney(payment)}</Text>
-        <Text className="font-sans text-hum-xs text-muted-foreground">Fare reflects the accepted quote for this trip.</Text>
+      <View className="gap-3 rounded-3xl border border-border bg-background px-4 py-4" testID="completed-rider-summary">
+        <View className="gap-1">
+          <Text className="font-sans text-[10px] font-hum-semibold uppercase tracking-wide text-muted-foreground">
+            Rider relationship
+          </Text>
+          <Text className="font-sans text-hum-lg font-hum-bold text-foreground">{riderName}</Text>
+          <Text className="font-sans text-hum-sm text-muted-foreground">
+            {riderHistory} · {formatMoney(data.rider.lifetimeValue)} lifetime value
+          </Text>
+        </View>
+        {data.rider.preferences.length ? (
+          <View className="flex-row flex-wrap gap-2">
+            {data.rider.preferences.map((preference) => (
+              <View className="rounded-full bg-muted px-3 py-1.5" key={preference}>
+                <Text className="font-sans text-hum-xs font-hum-semibold text-foreground">{preference}</Text>
+              </View>
+            ))}
+          </View>
+        ) : null}
       </View>
 
       {data.displayNote ? (
-        <View className="gap-1" testID="completed-display-note">
+        <View className="gap-1 rounded-2xl border border-border bg-background px-3 py-3" testID="completed-display-note">
           <Text className="font-sans text-[10px] font-hum-semibold uppercase tracking-wide text-muted-foreground">
             Ride note
           </Text>
@@ -53,7 +69,7 @@ export function CompletedRidePanel({
       ) : null}
 
       {data.relationshipNotes.length ? (
-        <View className="gap-2" testID="completed-relationship-notes">
+        <View className="gap-2 rounded-2xl border border-border bg-background px-3 py-3" testID="completed-relationship-notes">
           <Text className="font-sans text-[10px] font-hum-semibold uppercase tracking-wide text-muted-foreground">
             Saved relationship notes
           </Text>
@@ -73,12 +89,12 @@ export function CompletedRidePanel({
         <Text className="font-sans text-hum-sm text-foreground">{humMoment}</Text>
       </View>
 
-      <View className="gap-2">
+      <View className="gap-2 rounded-3xl border border-border bg-background px-4 py-4">
         <Text className="font-sans text-[10px] font-hum-semibold uppercase tracking-wide text-muted-foreground">
           Relationship memory
         </Text>
         <Text className="font-sans text-hum-xs text-muted-foreground">
-          Notable memories about this passenger for future reference.
+          Capture one detail now so the next ride feels personal.
         </Text>
         <TextInput
           accessibilityLabel="Relationship note"

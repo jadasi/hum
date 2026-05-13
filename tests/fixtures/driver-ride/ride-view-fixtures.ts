@@ -21,6 +21,7 @@ const baseRider: NonNullable<RideViewRideRow['rider']> = {
   total_rides: 12,
   lifetime_value_cents: 48_000,
   preferences: ['quiet ride'],
+  client_source: 'platform_conversion',
 };
 
 const basePricingId = '80000000-0000-4000-8000-000000000001';

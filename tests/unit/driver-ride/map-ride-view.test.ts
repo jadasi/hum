@@ -23,6 +23,7 @@ describe('mapRideView', () => {
     const model = mapRideView(row);
     expect(model).not.toBeNull();
     expect(model?.rider.id).toBe(row.rider?.id);
+    expect(model?.rider.clientSource).toBe(row.rider?.client_source);
     expect(model?.pricing.quoteId).toBe(row.pricing?.id);
     expect(model?.pricing.quoted.cents).toBe(row.pricing?.quoted_amount_cents);
     expect(model?.dropoff.addressLine1).toBe(row.dropoff?.address_line1);

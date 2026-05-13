@@ -135,6 +135,7 @@ export function mapRideView(
       totalRides: row.rider.total_rides,
       lifetimeValue: mapMoney(row.rider.lifetime_value_cents),
       preferences: row.rider.preferences ?? [],
+      clientSource: row.rider.client_source ?? 'unknown',
     },
     pricing: {
       quoteId: row.pricing.id,

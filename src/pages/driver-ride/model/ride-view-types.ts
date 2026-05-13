@@ -58,6 +58,14 @@ export type RelationshipNote = {
   tags: string[];
 };
 
+export type RiderClientSource =
+  | 'unknown'
+  | 'platform_conversion'
+  | 'referral'
+  | 'recurring_private_client'
+  | 'hum_network'
+  | 'direct_booking';
+
 export type RideViewReadModel = {
   id: string;
   state: RideState;
@@ -74,6 +82,7 @@ export type RideViewReadModel = {
     totalRides: number;
     lifetimeValue: Money;
     preferences: string[];
+    clientSource: RiderClientSource;
   };
   pricing: {
     /** `pricing_quotes.id` for driver-owned updates. */
@@ -128,6 +137,7 @@ export type RideViewRideRow = {
     total_rides: number;
     lifetime_value_cents: number;
     preferences: string[] | null;
+    client_source: RiderClientSource | null;
   } | null;
   pricing: {
     id: string;

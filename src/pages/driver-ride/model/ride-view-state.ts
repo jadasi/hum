@@ -55,7 +55,7 @@ export function buildRideActions(state: RideState, hasRiderPhone: boolean): Ride
         },
         {
           id: 'review_pre_trip_confirmation',
-          label: 'Review pre-trip confirmation',
+          label: 'Send pre-trip confirmation',
           priority: 'secondary',
           enabled: true,
           requiresReview: true,

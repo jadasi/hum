@@ -36,6 +36,8 @@ describe('pending ride panel', () => {
 
     expect(screen.getByTestId('pending-suggested-quote')).toBeTruthy();
     expect(screen.getByTestId('pending-quote-input').props.value).toBe('45.00');
+    expect(screen.getByText('Jordan Lee')).toBeTruthy();
+    expect(screen.getByTestId('pending-rider-source')).toBeTruthy();
   });
 
   it('shows platform comparison when both averages exist', () => {

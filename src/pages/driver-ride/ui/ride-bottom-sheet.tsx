@@ -1,4 +1,4 @@
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import * as React from 'react';
 import { View } from 'react-native';
 
@@ -29,9 +29,9 @@ export function RideBottomSheet({
   return (
     <View className="flex-1" pointerEvents="box-none" testID={testID}>
       <BottomSheet enablePanDownToClose={false} index={preset.index} snapPoints={snapPoints} topInset={topInset}>
-        <BottomSheetView>
+        <BottomSheetScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
           <View className="pb-6">{children}</View>
-        </BottomSheetView>
+        </BottomSheetScrollView>
       </BottomSheet>
     </View>
   );

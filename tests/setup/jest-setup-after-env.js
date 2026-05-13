@@ -33,7 +33,7 @@ jest.mock('@rnmapbox/maps', () => {
 
 jest.mock('@gorhom/bottom-sheet', () => {
   const React = require('react');
-  const { View } = require('react-native');
+  const { ScrollView, View } = require('react-native');
 
   const BottomSheet = ({ children, ...rest }) =>
     React.createElement(View, { ...rest }, children);
@@ -41,9 +41,13 @@ jest.mock('@gorhom/bottom-sheet', () => {
   const BottomSheetView = ({ children, ...rest }) =>
     React.createElement(View, { testID: 'ride-bottom-sheet-view', ...rest }, children);
 
+  const BottomSheetScrollView = ({ children, ...rest }) =>
+    React.createElement(ScrollView, { testID: 'ride-bottom-sheet-scroll-view', ...rest }, children);
+
   return {
     __esModule: true,
     default: BottomSheet,
+    BottomSheetScrollView,
     BottomSheetView,
   };
 });

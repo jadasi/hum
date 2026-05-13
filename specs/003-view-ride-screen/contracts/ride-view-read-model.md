@@ -37,6 +37,19 @@ type RideViewReadModel = {
 };
 ```
 
+```ts
+type RiderSnapshot = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  totalRides: number;
+  lifetimeValue: Money;
+  preferences: string[];
+  clientSource: RiderClientSource;
+};
+```
+
 ## Enums
 
 ```ts
@@ -59,6 +72,14 @@ type RouteAvailability =
   | 'location_unavailable'
   | 'route_unavailable'
   | 'permission_needed';
+
+type RiderClientSource =
+  | 'unknown'
+  | 'platform_conversion'
+  | 'referral'
+  | 'recurring_private_client'
+  | 'hum_network'
+  | 'direct_booking';
 ```
 
 ## Required Behavior

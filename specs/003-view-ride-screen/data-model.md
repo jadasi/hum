@@ -50,13 +50,14 @@ Represents client context shown inside the ride sheet.
 | `total_rides` | Integer | Yes | Relationship strength indicator |
 | `lifetime_value_cents` | Integer | Yes | Business value indicator |
 | `preferences` | Text list | No | Plain-language preferences |
-| `relationship_status` | Enum/text | No | Example: `new`, `regular`, `keep`, `one_time` |
+| `client_source` | Enum/text | No | Example: `platform_conversion`, `referral`, `recurring_private_client`, `hum_network`, `direct_booking`, `unknown` |
 
 **Validation**:
 
 - Names must not be blank.
 - Phone number must be present when passenger contact action is enabled.
 - Preferences may be empty but must not render as empty filler.
+- Client source must render as optional context and fall back gracefully when unknown.
 - Counts and money values must be non-negative.
 
 ### 3. Pricing Context

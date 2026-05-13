@@ -6,6 +6,19 @@ alter table public.locations
 alter table public.locations
   add column if not exists longitude double precision;
 
+alter table public.riders
+  add column if not exists client_source text not null default 'unknown'
+  check (
+    client_source in (
+      'unknown',
+      'platform_conversion',
+      'referral',
+      'recurring_private_client',
+      'hum_network',
+      'direct_booking'
+    )
+  );
+
 grant update on public.locations to authenticated;
 grant update on public.rides to authenticated;
 grant update on public.pricing_quotes to authenticated;

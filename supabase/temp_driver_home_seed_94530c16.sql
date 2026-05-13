@@ -44,7 +44,8 @@ insert into public.riders (
   phone_number,
   total_rides,
   lifetime_value_cents,
-  preferences
+  preferences,
+  client_source
 ) values
   (
     '20000000-0000-4000-8000-000000000001',
@@ -54,7 +55,8 @@ insert into public.riders (
     '+16025550101',
     24,
     96000,
-    array['front seat okay', 'commuter']
+    array['front seat okay', 'commuter'],
+    'recurring_private_client'
   ),
   (
     '20000000-0000-4000-8000-000000000002',
@@ -64,7 +66,8 @@ insert into public.riders (
     '+16025550102',
     12,
     54000,
-    array['prefers quiet', 'flies T4']
+    array['prefers quiet', 'flies T4'],
+    'referral'
   ),
   (
     '20000000-0000-4000-8000-000000000003',
@@ -74,7 +77,8 @@ insert into public.riders (
     '+16025550103',
     8,
     32000,
-    array['needs extra trunk space']
+    array['needs extra trunk space'],
+    'platform_conversion'
   ),
   (
     '20000000-0000-4000-8000-000000000004',
@@ -84,7 +88,8 @@ insert into public.riders (
     '+16025550104',
     18,
     81000,
-    array[]::text[]
+    array[]::text[],
+    'direct_booking'
   ),
   (
     '20000000-0000-4000-8000-000000000005',
@@ -94,7 +99,8 @@ insert into public.riders (
     '+16025550105',
     5,
     22500,
-    array['prefers text updates']
+    array['prefers text updates'],
+    'hum_network'
   )
 on conflict (id) do update set
   first_name = excluded.first_name,
@@ -103,6 +109,7 @@ on conflict (id) do update set
   total_rides = excluded.total_rides,
   lifetime_value_cents = excluded.lifetime_value_cents,
   preferences = excluded.preferences,
+  client_source = excluded.client_source,
   updated_at = now();
 
 insert into public.locations (

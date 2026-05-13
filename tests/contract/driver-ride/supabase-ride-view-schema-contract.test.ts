@@ -13,6 +13,13 @@ describe('ride view Supabase schema contract', () => {
     expect(migrationSql).toContain('longitude');
   });
 
+  it('adds client source context to riders', () => {
+    expect(migrationSql).toContain('alter table public.riders');
+    expect(migrationSql).toContain('client_source');
+    expect(migrationSql).toContain('platform_conversion');
+    expect(migrationSql).toContain('recurring_private_client');
+  });
+
   it('grants authenticated updates for ride workflow tables', () => {
     expect(migrationSql).toContain('grant update on public.locations');
     expect(migrationSql).toContain('grant update on public.rides');

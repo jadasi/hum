@@ -145,6 +145,7 @@ Deno.serve(async (req) => {
       total_rides: 24,
       lifetime_value_cents: 96000,
       preferences: ['front seat okay', 'commuter'],
+      client_source: 'recurring_private_client',
     },
     {
       id: riderIds[1],
@@ -155,6 +156,7 @@ Deno.serve(async (req) => {
       total_rides: 12,
       lifetime_value_cents: 54000,
       preferences: ['prefers quiet', 'flies T4'],
+      client_source: 'referral',
     },
     {
       id: riderIds[2],
@@ -165,6 +167,7 @@ Deno.serve(async (req) => {
       total_rides: 8,
       lifetime_value_cents: 32000,
       preferences: ['needs extra trunk space'],
+      client_source: 'platform_conversion',
     },
     {
       id: riderIds[3],
@@ -175,6 +178,7 @@ Deno.serve(async (req) => {
       total_rides: 18,
       lifetime_value_cents: 81000,
       preferences: [],
+      client_source: 'direct_booking',
     },
     {
       id: riderIds[4],
@@ -185,6 +189,7 @@ Deno.serve(async (req) => {
       total_rides: 5,
       lifetime_value_cents: 22500,
       preferences: ['prefers text updates'],
+      client_source: 'hum_network',
     },
   ];
 
