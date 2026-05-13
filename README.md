@@ -1,6 +1,25 @@
-# Welcome to your Expo app 👋
+# HUM — driver fulfillment slice
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This repository is the **HUM driver mobile client**: an [Expo](https://expo.dev) app focused on **driver fulfillment** — the workflows that let independent drivers run concierge-grade rides (schedule, preparation, active ride, handoff, and relationship context) backed by **Supabase**.
+
+HUM is not a generic gig dispatch experience. Riders are **clients** of a relationship-based service: discovery often happens through the driver, trust is in **consistent platform quality** as much as in one person, and the emotional bar is **relief** — *“You don’t know how much stress you relieve me of by allowing me to count on you.”* Product background for that rider journey (airport pickup as the signature flow, proactive communication, and moving off fragmented texts and payment apps) lives in [`resources/hum_rider_perspective.md`](resources/hum_rider_perspective.md).
+
+This codebase intentionally delivers **vertical slices** of that vision: the driver app and its contracts are governed by [`.specify/memory/constitution.md`](.specify/memory/constitution.md). In short:
+
+- **Drivers as business owners** — language and flows reinforce ownership, clients, and judgment; not anonymous marketplace pressure.
+- **Concierge reliability over gig urgency** — especially for airport pickup: flight context, pickup clarity, and one-tap progression before improvisation.
+- **Calm, legible, low-touch UI** — plain language, strong hierarchy, accessibility-friendly targets; software stays out of the way of driving and relationships.
+- **Relationship memory** — durable concepts for clients, history, and follow-up where the product touches them.
+- **Tested, incremental delivery** — small, independently verifiable workflows with automated coverage appropriate to risk.
+- **Feature-Sliced Design** — under `src/` (`app`, `pages`, `widgets`, `features`, `entities`, `shared`); route files in `src/app/` stay thin and compose slices from lower layers.
+
+Feature specs and plans live under `specs/` (for example [`specs/003-view-ride-screen/plan.md`](specs/003-view-ride-screen/plan.md)). The constitution applies to this driver slice and related backend behavior; it does not define the full rider or admin products.
+
+## Prerequisites
+
+- Node.js compatible with the Expo SDK in `package.json`
+- For native builds: Xcode (iOS) and/or Android Studio as required by [Expo’s docs](https://docs.expo.dev/)
+- Supabase and other secrets: copy `.env.example` to `.env` and configure values for your environment
 
 ## Get started
 
@@ -10,47 +29,29 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Start the dev server
 
    ```bash
-   npx expo start
+   npm run start
    ```
 
-In the output, you'll find options to open the app in a
+   You can open the app in a [development build](https://docs.expo.dev/develop/development-builds/introduction/), simulators, or [Expo Go](https://expo.dev/go) where compatible.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+3. Run checks used in development
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+   ```bash
+   npm run lint
+   npm run test
+   ```
 
-## Get a fresh project
-
-When you're ready, run:
+Native runs (when using prebuild / dev clients):
 
 ```bash
-npm run reset-project
+npm run ios
+npm run android
 ```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
 
 ## Learn more
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Expo documentation](https://docs.expo.dev/)
+- [Expo Router (file-based routes)](https://docs.expo.dev/router/introduction/) — this project routes through `src/app/`
