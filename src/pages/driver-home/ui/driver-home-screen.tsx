@@ -1,6 +1,13 @@
 import { SymbolView } from 'expo-symbols';
 import * as React from 'react';
 import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from 'react-native-reanimated';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { getDriverHomeScrollContentBottomPadding } from '../model/home-flight-view';
@@ -32,6 +39,39 @@ function headerDateParts(dateString: string): { weekday: string; monthDay: strin
   const monthDay = date.toLocaleDateString(undefined, { month: 'long', day: 'numeric' });
 
   return { weekday, monthDay };
+}
+
+const HOME_CARD_ENTER_MS = 320;
+const HOME_CARD_ENTER_OFFSET = 7;
+
+function HomeFadeSlideIn({
+  children,
+  delayMs,
+  replayKey,
+}: {
+  children: React.ReactNode;
+  delayMs: number;
+  replayKey: number;
+}) {
+  const progress = useSharedValue(0);
+
+  React.useEffect(() => {
+    progress.value = 0;
+    progress.value = withDelay(
+      delayMs,
+      withTiming(1, {
+        duration: HOME_CARD_ENTER_MS,
+        easing: Easing.out(Easing.cubic),
+      })
+    );
+  }, [delayMs, replayKey]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: progress.value,
+    transform: [{ translateY: (1 - progress.value) * HOME_CARD_ENTER_OFFSET }],
+  }));
+
+  return <Animated.View style={animatedStyle}>{children}</Animated.View>;
 }
 
 export function DriverHomeScreen({
@@ -142,8 +182,12 @@ export function DriverHomeScreen({
 
           {loadState.kind === 'ready' ? (
             <>
-              <HomeSummaryCard summary={loadState.data.summary} />
-              <HomeScheduleList rides={loadState.data.rides} />
+              <HomeFadeSlideIn delayMs={0} replayKey={refreshSignal}>
+                <HomeSummaryCard summary={loadState.data.summary} />
+              </HomeFadeSlideIn>
+              <HomeFadeSlideIn delayMs={56} replayKey={refreshSignal}>
+                <HomeScheduleList rides={loadState.data.rides} />
+              </HomeFadeSlideIn>
             </>
           ) : null}
         </ScrollView>

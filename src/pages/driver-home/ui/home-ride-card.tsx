@@ -144,20 +144,11 @@ export function HomeRideCard({ ride }: HomeRideCardProps) {
               ? 'relative overflow-hidden border-[1.5px] border-primary bg-card shadow-md'
               : 'relative overflow-hidden bg-card'
         }>
-        {active ? (
-          <>
-            <View className="absolute bottom-0 left-0 top-0 w-1.5 bg-primary" />
-            <View className="absolute -right-8 -top-10 h-24 w-24 rounded-full bg-primary/10" />
-          </>
-        ) : null}
 
         <View className="flex-row items-center justify-between gap-3">
           <View className="flex-row flex-wrap items-center gap-2">
             <Text className="rounded-full bg-primary/10 px-3 py-1 font-sans text-hum-xs font-hum-bold text-primary">
               {formatTime(ride.completedAt ?? ride.scheduledPickupAt)}
-            </Text>
-            <Text className="font-sans text-hum-xs font-hum-semibold uppercase tracking-wide text-muted-foreground">
-              {rideType}
             </Text>
           </View>
           <RideStatusBadge state={ride.state} />

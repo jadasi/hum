@@ -1,3 +1,20 @@
+jest.mock('react-native-reanimated', () => {
+  const { View } = require('react-native');
+
+  return {
+    __esModule: true,
+    default: { View },
+    Easing: {
+      out: (fn) => fn,
+      cubic: (t) => t,
+    },
+    useSharedValue: (init) => ({ value: init }),
+    useAnimatedStyle: () => ({ opacity: 1, transform: [{ translateY: 0 }] }),
+    withTiming: (toValue) => toValue,
+    withDelay: (_delayMs, animation) => animation,
+  };
+});
+
 jest.mock('react-native-safe-area-context', () => {
   const actual = jest.requireActual('react-native-safe-area-context');
   return {
