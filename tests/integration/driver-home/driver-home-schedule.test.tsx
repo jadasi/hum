@@ -6,6 +6,7 @@ import { scheduleDashboardFixture } from '../../fixtures/driver-home/home-dashbo
 
 jest.mock('expo-router', () => ({
   router: {
+    push: jest.fn(),
     replace: jest.fn(),
   },
 }));
@@ -16,9 +17,9 @@ describe('driver home schedule', () => {
 
     expect(screen.getByText('Pending')).toBeTruthy();
     expect(screen.getByText('Confirmed')).toBeTruthy();
-    expect(screen.getByText('Driving to pickup')).toBeTruthy();
-    expect(screen.getByText('Driving to destination')).toBeTruthy();
-    expect(screen.getByText('Completed')).toBeTruthy();
+    expect(screen.getAllByText('Pickup').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('Dropoff').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText('Done')).toBeTruthy();
   });
 
   it('renders rides in chronological order', () => {

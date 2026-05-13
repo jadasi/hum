@@ -1,7 +1,9 @@
 import { SymbolView } from 'expo-symbols';
 import * as React from 'react';
 import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { getDriverHomeScrollContentBottomPadding } from '../model/home-flight-view';
 
 import { useAuthStore } from '@/features/auth';
 import { Button } from '@/shared/ui/primitives/button';
@@ -15,6 +17,7 @@ import { HomeSummaryCard } from './home-summary-card';
 type DriverHomeScreenProps = {
   initialData?: HomeDashboardReadModel;
   onOpenMenu?: () => void;
+  refreshSignal?: number;
   today?: string;
 };
 
@@ -31,10 +34,17 @@ function headerDateParts(dateString: string): { weekday: string; monthDay: strin
   return { weekday, monthDay };
 }
 
-export function DriverHomeScreen({ initialData, onOpenMenu, today = todayString() }: DriverHomeScreenProps) {
+export function DriverHomeScreen({
+  initialData,
+  onOpenMenu,
+  refreshSignal = 0,
+  today = todayString(),
+}: DriverHomeScreenProps) {
+  const insets = useSafeAreaInsets();
   const user = useAuthStore((state) => state.user);
   const driverId = user?.id;
   const headerDate = headerDateParts(today);
+  const scrollContentBottomPadding = getDriverHomeScrollContentBottomPadding(insets.bottom);
   const [loadState, setLoadState] = React.useState<DriverHomeLoadState>(() =>
     initialData ? { kind: 'ready', data: initialData } : { kind: 'loading' }
   );
@@ -64,13 +74,13 @@ export function DriverHomeScreen({ initialData, onOpenMenu, today = todayString(
   }, [driverId, today]);
 
   React.useEffect(() => {
-    if (initialData) {
+    if (initialData && refreshSignal === 0) {
       setLoadState({ kind: 'ready', data: initialData });
       return;
     }
 
     return loadDashboard();
-  }, [initialData, loadDashboard]);
+  }, [initialData, loadDashboard, refreshSignal]);
 
   const onRetryLoad = React.useCallback(() => {
     loadDashboard();
@@ -79,7 +89,11 @@ export function DriverHomeScreen({ initialData, onOpenMenu, today = todayString(
   return (
     <View className="flex-1 bg-background">
       <SafeAreaView className="flex-1" edges={['top', 'left', 'right']}>
-        <ScrollView className="flex-1" contentContainerClassName="gap-5 px-5 pb-8 pt-4">
+        <ScrollView
+          className="flex-1"
+          contentContainerClassName="gap-5 px-5 pt-4"
+          contentContainerStyle={{ paddingBottom: scrollContentBottomPadding }}
+        >
           <View className="flex-row items-start justify-between gap-4">
             <View
               accessibilityLabel={`${headerDate.weekday}, ${headerDate.monthDay}`}

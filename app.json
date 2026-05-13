@@ -29,6 +29,7 @@
     },
     "plugins": [
       "expo-router",
+      "@rnmapbox/maps",
       "expo-system-ui",
       [
         "expo-navigation-bar",

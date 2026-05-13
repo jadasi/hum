@@ -214,6 +214,16 @@ on conflict (id) do update set
   airport_code = excluded.airport_code,
   updated_at = now();
 
+-- Map coordinates for ride view (approximate Phoenix metro).
+update public.locations set latitude = 33.4499, longitude = -111.9700 where id = '30000000-0000-4000-8000-000000000001';
+update public.locations set latitude = 33.4340, longitude = -112.0080 where id = '30000000-0000-4000-8000-000000000002';
+update public.locations set latitude = 33.4343, longitude = -112.0116 where id = '30000000-0000-4000-8000-000000000003';
+update public.locations set latitude = 33.4942, longitude = -111.9261 where id = '30000000-0000-4000-8000-000000000004';
+update public.locations set latitude = 33.5081, longitude = -112.0267 where id = '30000000-0000-4000-8000-000000000005';
+update public.locations set latitude = 33.5013, longitude = -111.9512 where id = '30000000-0000-4000-8000-000000000006';
+update public.locations set latitude = 33.5271, longitude = -111.9518 where id = '30000000-0000-4000-8000-000000000007';
+update public.locations set latitude = 33.4500, longitude = -112.0700 where id = '30000000-0000-4000-8000-000000000008';
+
 insert into public.pricing_quotes (
   id,
   driver_id,

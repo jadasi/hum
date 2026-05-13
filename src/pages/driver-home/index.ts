@@ -1,4 +1,5 @@
 export { getHomeDashboard, homeDashboardErrorMessage } from './api/get-home-dashboard';
+export { resetDemoRideData, resetDemoRideDataErrorMessage } from './api/reset-demo-ride-data';
 export {
   formatMoney,
   formatRideGoalProgress,

@@ -11,6 +11,7 @@ import {
 
 jest.mock('expo-router', () => ({
   router: {
+    push: jest.fn(),
     replace: jest.fn(),
   },
 }));
@@ -24,7 +25,8 @@ describe('driver home edge cases', () => {
 
     render(<DriverHomeScreen initialData={dashboard} today="2026-05-12" />);
 
-    expect(screen.getByText('Pickup to be confirmed -> Home')).toBeTruthy();
+    expect(screen.getByText('Pickup to be confirmed')).toBeTruthy();
+    expect(screen.getByText('Home')).toBeTruthy();
   });
 
   it('omits unavailable optional flight fields', () => {
@@ -62,7 +64,8 @@ describe('driver home edge cases', () => {
       />
     );
 
-    expect(screen.getByText('quoted $45')).toBeTruthy();
-    expect(screen.queryByText(/accepted/i)).toBeNull();
+    expect(screen.getByText('Quoted')).toBeTruthy();
+    expect(screen.getByText('$45')).toBeTruthy();
+    expect(screen.queryByText('Accepted')).toBeNull();
   });
 });

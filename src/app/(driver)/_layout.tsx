@@ -4,13 +4,40 @@ import { Alert, ScrollView, View } from 'react-native';
 import { Drawer } from 'react-native-drawer-layout';
 
 import { evaluateDriverGuard, signOut, useAuthStore } from '@/features/auth';
+import { resetDemoRideData } from '@/pages/driver-home';
 import { AnimatedSplashOverlay } from '@/shared/ui/animated-icon';
 import { Button } from '@/shared/ui/primitives/button';
 
 import { DriverDrawerProvider } from './driver-drawer-context';
 
-function DriverDrawerContent() {
+type DriverDrawerContentProps = {
+  onCloseDrawer: () => void;
+  onDemoDataReset: () => void;
+};
+
+function DriverDrawerContent({ onCloseDrawer, onDemoDataReset }: DriverDrawerContentProps) {
+  const [resettingDemoData, setResettingDemoData] = React.useState(false);
   const [signingOut, setSigningOut] = React.useState(false);
+
+  const onResetDemoData = React.useCallback(async () => {
+    if (resettingDemoData) {
+      return;
+    }
+    setResettingDemoData(true);
+    try {
+      const { error } = await resetDemoRideData();
+      if (error) {
+        Alert.alert('Reset failed', error);
+        return;
+      }
+      onDemoDataReset();
+      onCloseDrawer();
+      router.replace('/(driver)/(tabs)');
+      Alert.alert('Demo rides reset', 'Your demo ride data has been refreshed.');
+    } finally {
+      setResettingDemoData(false);
+    }
+  }, [onCloseDrawer, onDemoDataReset, resettingDemoData]);
 
   const onSignOut = React.useCallback(async () => {
     if (signingOut) {
@@ -43,6 +70,14 @@ function DriverDrawerContent() {
             <Button disabled variant="ghost">
               Earnings
             </Button>
+            <Button
+              accessibilityHint="Clears your ride data, seeds fresh demo rides, and reloads the home page"
+              accessibilityLabel="Reset demo ride data"
+              loading={resettingDemoData}
+              onPress={() => void onResetDemoData()}
+              variant="ghost">
+              Reset demo rides
+            </Button>
             <Button disabled variant="ghost">
               Settings
             </Button>
@@ -63,6 +98,7 @@ function DriverDrawerContent() {
 
 export default function DriverLayout() {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [demoDataResetVersion, setDemoDataResetVersion] = React.useState(0);
   const hydrated = useAuthStore((s) => s.hydrated);
   const status = useAuthStore((s) => s.status);
   const guard = evaluateDriverGuard(hydrated, status);
@@ -74,6 +110,8 @@ export default function DriverLayout() {
     return <Redirect href={guard.href} />;
   }
 
+  const onDemoDataReset = () => setDemoDataResetVersion((version) => version + 1);
+
   return (
     <>
       <AnimatedSplashOverlay />
@@ -83,8 +121,13 @@ export default function DriverLayout() {
         onClose={() => setDrawerOpen(false)}
         onOpen={() => setDrawerOpen(true)}
         open={drawerOpen}
-        renderDrawerContent={() => <DriverDrawerContent />}>
-        <DriverDrawerProvider openDrawer={() => setDrawerOpen(true)}>
+        renderDrawerContent={() => (
+          <DriverDrawerContent
+            onCloseDrawer={() => setDrawerOpen(false)}
+            onDemoDataReset={onDemoDataReset}
+          />
+        )}>
+        <DriverDrawerProvider demoDataResetVersion={demoDataResetVersion} openDrawer={() => setDrawerOpen(true)}>
           <Slot />
         </DriverDrawerProvider>
       </Drawer>

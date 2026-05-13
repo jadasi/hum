@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 type DriverDrawerContextValue = {
+  demoDataResetVersion: number;
   openDrawer: () => void;
 };
 
@@ -8,9 +9,14 @@ const DriverDrawerContext = React.createContext<DriverDrawerContextValue | null>
 
 export function DriverDrawerProvider({
   children,
+  demoDataResetVersion,
   openDrawer,
 }: React.PropsWithChildren<DriverDrawerContextValue>) {
-  return <DriverDrawerContext.Provider value={{ openDrawer }}>{children}</DriverDrawerContext.Provider>;
+  return (
+    <DriverDrawerContext.Provider value={{ demoDataResetVersion, openDrawer }}>
+      {children}
+    </DriverDrawerContext.Provider>
+  );
 }
 
 export function useDriverDrawer() {

@@ -1,6 +1,6 @@
 import { SymbolView } from 'expo-symbols';
 import * as React from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 import { Text } from '@/shared/ui/primitives/text';
 
@@ -68,4 +68,13 @@ export function formatFlightTerminalGate(flight: FlightDisplay): string | null {
 
 export function formatBaggageClaim(flight: FlightDisplay): string | null {
   return flight.baggageClaim ? `Baggage ${flight.baggageClaim}` : null;
+}
+
+/** Bottom padding for the driver home scroll content: iOS NativeTabs overlap the scroll edge. */
+export function getDriverHomeScrollContentBottomPadding(bottomSafeInset: number): number {
+  const basePadding = 16;
+  if (Platform.OS !== 'ios') {
+    return basePadding;
+  }
+  return basePadding + bottomSafeInset;
 }
